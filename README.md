@@ -9,7 +9,7 @@ Serverless image processing pipeline leveraging AWS Lambda, S3, and API Gateway 
 
 -----------------------
 
-* Below is the Architecture for this project:
+*Below is the Architecture for this project:
 
 | User Upload |
 | (HTTP POST) |
