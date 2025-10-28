@@ -29,7 +29,6 @@ AWS Lambda (Processor Function)
 - Writes results to S3 (Processed)
 - Writes results to DynamoDB
 |
-+-------------------------------+
 | |
 v v
 S3 (Processed) DynamoDB
