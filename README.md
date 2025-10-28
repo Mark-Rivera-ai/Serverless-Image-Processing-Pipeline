@@ -11,27 +11,39 @@ Serverless image processing pipeline leveraging AWS Lambda, S3, and API Gateway 
 
 * Below is the Architecture for this project:
 
-graph TD
-    A[User Upload (HTTP POST)] --> B[Amazon API Gateway]
-    B --> C[AWS Lambda (Ingest Function)]
-    C --> D(S3 - Raw Images)
-    D -- S3 Event Trigger (ObjectCreated) --> E[AWS Lambda (Processor Function)]
-    E --> F(S3 - Processed)
-    E --> G{DynamoDB}
-    E --> H[CloudWatch Logs and Metrics]
-
-    subgraph "AWS Lambda (Ingest Function)"
-        C -- Validates upload --> D
-        C -- Saves to S3 --> D
-    end
-
-    subgraph "AWS Lambda (Processor Function)"
-        E -- Resizes image --> F
-        E -- Extracts metadata --> G
-        E -- Writes results to S3 --> F
-        E -- Writes results to DynamoDB --> G
-    end
-
+| User Upload |
+| (HTTP POST) |
++--------+---------+
+|
+v
++--------+---------+
+| Amazon API |
+| Gateway |
++--------+---------+
+|
+v
++--------+--------------------------+
+| AWS Lambda (Ingest Function) |
+| - Validates upload |
+| - Saves to S3 (Raw Images) |
++--------+--------------------------+
+|
+| S3 Event Trigger
+| (ObjectCreated)
+v
++--------+---------------------------------+
+| AWS Lambda (Processor Function) |
+| - Resizes image |
+| - Extracts metadata |
+| - Writes results to S3 (Processed) |
+| - Writes results to DynamoDB |
++--------+---------------------------------+
+| | |
+| | |
+v v v
++--------+---------+ +-------------+ +--------------------+
+| S3 (Processed) | | DynamoDB | | CloudWatch Logs |
++------------------+ +-------------+ +--------------------+
 
 ------------------------
 * Core Components
