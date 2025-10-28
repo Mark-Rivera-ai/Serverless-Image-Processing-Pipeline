@@ -11,26 +11,21 @@ Serverless image processing pipeline leveraging AWS Lambda, S3, and API Gateway 
 
 * Below is the Architecture for this project:
 
-User Upload (HTTP POST)
-        │
-        ▼
+User Upload (HTTP POST) 
+        |
 Amazon API Gateway
-        │
-        ▼
+        |
 AWS Lambda (Ingest Function)
   - Validates upload
   - Saves to S3 (Raw Images)
-        │
-        ▼
+        |
 S3 Event Trigger (ObjectCreated)
-        │
-        ▼
+        |
 AWS Lambda (Processor Function)
   - Resizes image
   - Extracts metadata
   - Writes results to S3 (Processed) and DynamoDB
-        │
-        ▼
+        |
 CloudWatch Logs and Metrics
 
 ------------------------
